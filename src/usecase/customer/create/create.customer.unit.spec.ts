@@ -43,9 +43,7 @@ describe("Unit Test create customer use case", () => {
         const customerCreateUseCase = new CreateCustomerUseCase(customerRepository);
 
         expect(async () => {
-            input.name = "";
-
-            await customerCreateUseCase.execute(input)
+            await customerCreateUseCase.execute({ ...input, name: "" })
         }).rejects.toThrow("Name is required");
     });
 
@@ -54,9 +52,7 @@ describe("Unit Test create customer use case", () => {
         const customerCreateUseCase = new CreateCustomerUseCase(customerRepository);
 
         expect(async () => {
-            input.address.street = "";
-
-            await customerCreateUseCase.execute(input)
+            await customerCreateUseCase.execute({ ...input, address: { ...input.address, street: "" } })
         }).rejects.toThrow("Street is required");
     });
 });
