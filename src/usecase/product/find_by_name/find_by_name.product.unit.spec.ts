@@ -13,10 +13,10 @@ const MockRepository = () => {
     };
 };
 
-describe("Unit Test find product use case", () => {
+describe("Unit test find by name product use case", () => {
     it("should find a product", async () => {
         const productRepository = MockRepository();
-        const useCase = new FindByNameProductUseCase(productRepository);
+        const findByNameProductUseCase = new FindByNameProductUseCase(productRepository);
 
         const input = { name: "Product 1" };
 
@@ -26,14 +26,14 @@ describe("Unit Test find product use case", () => {
             price: 100
         }
 
-        const result = await useCase.execute(input);
+        const result = await findByNameProductUseCase.execute(input);
 
         expect(result).toEqual(output);
     });
 
     it("should not find a product", async () => {
         const productRepository = MockRepository();
-        const useCase = new FindByNameProductUseCase(productRepository);
+        const findByNameProductUseCase = new FindByNameProductUseCase(productRepository);
 
         productRepository.findByName.mockImplementation(() => {
             throw new Error("Product not found")
@@ -42,7 +42,7 @@ describe("Unit Test find product use case", () => {
         const input = { name: "Product 2" };
 
         expect(async () => {
-            await useCase.execute(input);
+            await findByNameProductUseCase.execute(input);
         }).rejects.toThrow("Product not found")
     });
 });
