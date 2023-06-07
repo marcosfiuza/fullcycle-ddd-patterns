@@ -14,9 +14,13 @@ export default class ProductRepository implements ProductRepositoryInterface {
     }
 
     async find(id: string): Promise<Product> {
-        const productModel = await ProductModel.findOne({ where: { id } });
+        try {
+            const productModel = await ProductModel.findOne({ where: { id }, rejectOnEmpty: true });
 
-        return new Product(productModel.id, productModel.name, productModel.price);
+            return new Product(productModel.id, productModel.name, productModel.price);
+        } catch (err) {
+            throw new Error("Product not found");
+        }
     }
 
     async findAll(): Promise<Product[]> {
@@ -28,8 +32,12 @@ export default class ProductRepository implements ProductRepositoryInterface {
     }
 
     async findByName(name: string): Promise<Product> {
-        const productModel = await ProductModel.findOne({ where: { name } });
+        try {
+            const productModel = await ProductModel.findOne({ where: { name }, rejectOnEmpty: true });
 
-        return new Product(productModel.id, productModel.name, productModel.price);
+            return new Product(productModel.id, productModel.name, productModel.price);
+        } catch (err) {
+            throw new Error("Product not found");
+        }
     }
 }

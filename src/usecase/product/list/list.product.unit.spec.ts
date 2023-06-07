@@ -17,9 +17,9 @@ const MockRepository = () => {
 describe("Unit test list product use case", () => {
     it("should list products", async () => {
         const productRepository = MockRepository();
-        const productListUseCase = new ListProductUseCase(productRepository);
+        const listProductUseCase = new ListProductUseCase(productRepository);
 
-        const output = await productListUseCase.execute({});
+        const output = await listProductUseCase.execute({});
 
         expect(output.products).toStrictEqual([
             {
