@@ -32,7 +32,7 @@ export default class Product {
             throw new Error("Name is required");
         }
 
-        if (this._price < 0) {
+        if (this._price <= 0) {
             throw new Error("Price must be greater than 0");
         }
 
