@@ -13,10 +13,20 @@ describe("PRoduct unit tests", () => {
         }).toThrowError("Name is required");
     });
 
-    it("should throw error when price is less than 0", () => {
+    it("should throw error when price is less than or equal to 0", () => {
         expect(() => {
             const product = new Product("123", "123", -100);
         }).toThrowError("Price must be greater than 0");
+
+        expect(() => {
+            const product = new Product("123", "123", 0);
+        }).toThrowError("Price must be greater than 0");
+    });
+
+    it("should throw error when id and name are empty and price is less than or equal to 0", () => {
+        expect(() => {
+            const product = new Product("", "", -100);
+        }).toThrowError("Id is required, Name is required, Price must be greater than 0");
     });
 
     it("should change name", () => {
