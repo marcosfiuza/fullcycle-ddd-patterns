@@ -34,5 +34,15 @@ describe("e2e test for customer", () => {
                 city: "City"
             }
         });
-    })
+    });
+
+    it("should not create a customer", async () => {
+        const response = await request(app)
+            .post("/customers")
+            .send({
+                name: "Customer 1"
+            });
+
+        expect(response.status).toBe(500);
+    });
 });
